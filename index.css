@@ -1,7 +1,69 @@
 
+body {
+    background: rgb(240, 240, 240);
+    z-index: 1;
+}
+
+.header {
+    text-align: center; 
+    z-index: 2; 
+    font-size: 85px; 
+    font-weight: bold; 
+    margin-top: 30px'
+}
+
+.main {
+    margin: auto; 
+    display:flex; 
+    justify-content: center; 
+    width: 100%; 
+    height: 80vh; 
+    margin-top: 30px; 
+    z-index: 2
+}
+
+.containerButtons, .containerFake {
+    display:flex; 
+    align-items:center; 
+    justify-content: space-between; 
+    flex-direction: column; 
+    width: 190px; 
+    height: 450px;
+    margin-right: 100px;
+    margin-top: 20px;
+}
+
+.containerSquares {
+    display:grid; 
+    background: #fff; 
+    min-width: 500px; 
+    height: 500px; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+button {
+    font-size: 16px; 
+    width: 200px; 
+    height: 40px; 
+    outline: none;
+    border: 1px solid #000; 
+    border-radius: 5px;  
+    cursor:pointer
+}
+
+.btnClicked {
+    background: #000;
+    color: #eee;
+}
+
+.toogleHeader {
+    color: #000; 
+    text-align: center
+}
+
 input[type=color] {
-    width: 80px;
-    height: 80px; 
+    width: 85px;
+    height: 85px; 
     border: none;
     border-radius: 50%;
     overflow: hidden;
@@ -21,7 +83,6 @@ input[type="range"] {
     height: 8px;
     border: 1px solid #000;
     border-radius: 10px;
-    margin-top: 30px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
