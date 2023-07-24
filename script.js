@@ -21,7 +21,7 @@ function addElements() {
     const main = createElement('div', document.body, styleMain)
 
     const styleButtons = 'display:flex; align-items:center; justify-content: space-between; flex-direction: column; ' +
-                            'width: 190px; height: 400px'    
+                            'width: 190px; height: 500px'    
     const containerButtons = createElement('div', main, styleButtons)
 
     const styleSquare = 'display:grid; background: #fff; min-width: 500px; height: 500px; ' +
@@ -44,9 +44,15 @@ function createElement(tag, parent, style) {
 
 
 function createToogle(containerButtons) {
-    const containerToogle = createElement('input', containerButtons, 
-        'width: 190px; height: 10px; background: #fff')
-        .setAttribute('type', 'range')
+    const header = createElement('h3', containerButtons, 'color: #000; text-align: center')
+    const toogle = createElement('input', containerButtons, '')
+            .setAttribute('type', 'range')
+            .setAttribute('min', 1)
+            .setAttribute('max', 64)
+            .setAttribute('value', 16)
+            .setAttribute('class', 'range')
+    
+    header.textContent = toogle.value + ' X ' + toogle.value    
 }
 
 
