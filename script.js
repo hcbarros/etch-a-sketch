@@ -1,13 +1,9 @@
 
+const options = {Color: true    , Rainbow: false, Eraser: false, Clear: false};
+let init = false;
+
 
 (function game() {
-
-
-    addElements()
-
-}())
-
-function addElements() {
 
     const header = createElement('div', document.body, 'class', 'header')
     header.textContent = 'Etch-a-sketch'
@@ -23,13 +19,16 @@ function addElements() {
     createButtons(containerButtons)
 
     createToogle(containerButtons)
-}   
+}())
 
 
 function createElement(tag, parent, attributeType, attributeName) {
     const element = document.createElement(tag)
     element.setAttribute(attributeType, attributeName)
-    return parent.appendChild(element)
+    if(parent != null) {
+        parent.appendChild(element)
+    }
+    return element
 }
 
 
@@ -41,34 +40,65 @@ function createToogle(containerButtons) {
         toogle.setAttribute('max', 64)
         toogle.setAttribute('value', 16)
         toogle.setAttribute('class', 'range')
-    
-    toogle.addEventListener('mousemove', changeRange)    
+
+    addSquares(toogle)    
+    toogle.addEventListener('mouseup', (e) => addSquares(e.target))    
+    toogle.addEventListener('mousemove', (e) => {
+        header.textContent = e.target.value + ' X ' + e.target.value     
+    })
     header.textContent = toogle.value + ' X ' + toogle.value    
 }
 
 
-function changeRange(event) {
-
-    const inputRange = event.target
-
-    const toogleHeader = document.getElementsByClassName('toogleHeader')[0]    
-    toogleHeader.textContent = inputRange.value + ' X ' + inputRange.value
-
+function addSquares(inputRange) {
 
     const containerSquares = document.getElementsByClassName('containerSquares')[0]
-    const color = document.getElementById('color')
+
+    containerSquares.innerHTML = ''
 
     let widthContainerSquares = containerSquares.clientWidth
     const sideSquare = parseFloat(widthContainerSquares)/inputRange.value
 
-
-    for(let i = 0; i < (inputRange.value * inputRange.value); i++) {
-        const square = createElement('div', containerSquares, 'style', `width: ${sideSquare}; height: ${sideSquare}`)
-        square.addEventListener('mousedown', () => {
-            
-        })
+    for(let i = 0; i < inputRange.value * inputRange.value; i++) {
+        createElement('div', containerSquares, 'class', 'square')
     }
 
+    containerSquares.style.gridTemplateColumns = `repeat(auto-fill, minmax(${sideSquare}px, 1fr))`
+
+    if(init == false) {
+        init = true
+        paint()
+    }        
+
+}
+
+
+function paint() {
+    
+    const containerSquares = document.getElementsByClassName('containerSquares')[0]
+
+    containerSquares.addEventListener('mousedown', (e) => {
+        
+        [...containerSquares.children].map(square => {
+            square.addEventListener('mouseover', () => {
+
+                if(options['Color'] == true) {
+                    const color = document.getElementById('color')
+                    square.style.background = color.value
+                }
+                if(options['Rainbow'] == true) {
+                    const color1 = Math.floor(Math.random() * 257)
+                    const color2 = Math.floor(Math.random() * 257)
+                    const color3 = Math.floor(Math.random() * 257)
+                    square.style.background = `rgb(${color1},${color2},${color3})`
+                }
+                if(options['Eraser'] == true) {
+                    square.style.background = '#fff'
+                }
+    
+            })
+        })
+    })  
 }
 
 
@@ -81,6 +111,9 @@ function createButtons(containerButtons) {
         } 
         const button =  createElement('button', containerButtons, 'class', b)
         addEventButton(button, b)    
+        if(b == 'Color') {
+            button.classList.add('btnClicked')
+        }
         return button.textContent = b
     })
 }
@@ -89,18 +122,16 @@ function createButtons(containerButtons) {
 function addEventButton(button, name) {
 
     button.addEventListener('click', () => {
-        document.querySelectorAll('button').forEach(b => {
-            if(name != 'Clear' ) {
-                b.classList.remove('btnClicked')
-                button.classList.add('btnClicked')
-            }   
-        })
         
-        if(name == 'Color') {
-            const color = document.getElementById('color')           
-            alert(color.value)
+        if(name == 'Clear') {
+            document.querySelectorAll('.square').forEach(s => s.style.background = '#fff') 
+            return
         }
-
-
+        document.querySelectorAll('button').forEach(b => {
+            options[b.textContent] = false
+            b.classList.remove('btnClicked')
+            button.classList.add('btnClicked')
+        }) 
+        options[name] = true
     })
 }
