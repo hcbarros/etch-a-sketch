@@ -4,12 +4,16 @@ body {
     z-index: 1;
 }
 
+.pageContent {
+    margin-top: 30px;
+    width: 100%; 
+}
+
 .header {
     text-align: center; 
     z-index: 2; 
     font-size: 85px; 
     font-weight: bold; 
-    margin-top: 30px'
 }
 
 .main {
@@ -34,10 +38,10 @@ body {
 }
 
 .containerSquares {
-    display:grid; 
+    display: grid; 
     grid-gap: 0;
     background: #fff; 
-    min-width: 500px; 
+    width: 500px; 
     height: 500px; 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
@@ -58,8 +62,9 @@ button {
 }
 
 .toogleHeader {
-    color: #000; 
-    text-align: center
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 input[type=color] {
@@ -80,7 +85,7 @@ input[type="range"] {
     appearance: none;
     background: #fff;
     cursor: pointer;
-    width: 190px;
+    width: 195px;
     height: 8px;
     border: 1px solid #000;
     border-radius: 10px;
@@ -102,3 +107,52 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 50%;
 }
   
+
+@media (max-width: 1200px) {
+    .containerFake {
+        display: none;
+    }
+}
+
+@media (max-width: 850px) {
+    .containerSquares {
+        width: 400px; 
+        height: 400px;
+    }
+    .containerButtons, .containerFake { 
+        height: 375px;
+        margin-right: 30px;
+    }
+    button {
+        width: 150px;
+    }
+    input[type="range"] {
+        width: 145px;
+    }
+}
+
+@media (max-width: 670px) {
+    .pageContent {
+        min-height: 900px;
+    }
+    .header {
+        font-size: 55px;
+    }    
+    .containerSquares {
+        width: 300px; 
+        width: 300px;
+        height: 300px;
+    }
+    .containerButtons, .containerFake { 
+        min-height: 385px;
+        margin-top: 50px;
+    }
+    .main {
+        align-items: center;
+        flex-direction: column-reverse;
+        height: 100%;
+    }
+
+}
+
+
